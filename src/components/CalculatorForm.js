@@ -89,13 +89,20 @@ class CalculatorForm extends React.Component {
                 }
             }
         }
+        if (rebarLength) {
+            this.state.leftoverRebar.push(rebarLength);
+        }
     }
 
     availableFromLeftOverRebar(lengthNeeded) {
         this.state.leftoverRebar.some(
             (rebar, index) => {
-                if(rebar >= lengthNeeded) {
-                    this.state.leftoverRebar.splice(index, 1);
+                if (rebar >= lengthNeeded) {
+                    let recutRebar = rebar - lengthNeeded;
+                    this.state.leftoverRebar[index] = recutRebar;
+                    if (!recutRebar) {
+                        this.state.leftoverRebar.splice(index, 1);
+                    }
                     return true;
                 }
                 return false;
